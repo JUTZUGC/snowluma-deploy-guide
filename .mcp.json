@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "snowluma-guide": {
+      "command": "node",
+      "args": [
+        "mcp-server.mjs"
+      ]
+    }
+  }
+}

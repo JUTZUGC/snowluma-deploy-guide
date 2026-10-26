@@ -1,0 +1,104 @@
+{
+  "owner": "JUTZUGC",
+  "code": "JUTZUGC",
+  "project": {
+    "key": "snowluma",
+    "nameCn": "SnowLuma",
+    "repoName": "snowluma-deploy-guide",
+    "oneLiner": "把 QQ 会话桥接成 OneBot v11 的运行时",
+    "officialRepo": "https://github.com/SnowLuma/SnowLuma",
+    "officialDocs": "https://snowluma.github.io/zh/docs/guide/deploy",
+    "stars": "2.7k",
+    "license": "自定义 EULA",
+    "highlights": [
+      "接口：OneBot v11（WS 服务端 / 客户端、HTTP 服务端 / 上报）",
+      "消息：文本、图片、语音、视频、文件、回复、提及、转发与常见卡片",
+      "多账号：会话、身份映射、消息存储、网络配置各自独立",
+      "WebUI：账号状态、实时日志、连接配置、动作调试",
+      "扩展：`@snowluma/sdk` 与 `@snowluma/mcp`"
+    ],
+    "mcpSupport": "项目提供 `@snowluma/mcp` 包，可把能力以 MCP 形式暴露给 Agent。本仓库的 MCP 只提供下载、校验与常见坑。",
+    "webuiUrl": "",
+    "adapterPorts": "",
+    "collectedAt": "2026-10-26",
+    "verification": [
+      [
+        "Release v2.2.0 的 Windows / Linux 包与 SHA256 digest 已核对",
+        "已核对 2026-10-26"
+      ],
+      [
+        "未下载运行（桥接需要已登录的 QQ，本机无测试账号）",
+        "已核对 2026-10-26"
+      ],
+      [
+        "MCP 服务握手与工具列表（initialize / tools/list）",
+        "已验证 2026-10-26"
+      ],
+      [
+        "非目标宿主调用被拦截（HOST_NOT_ALLOWED）",
+        "已验证 2026-10-26"
+      ]
+    ],
+    "deploy": {
+      "type": "binary",
+      "steps": [
+        "[ \"$(uname -s)\" = \"Linux\" ] || { echo \"官方只提供 Windows / Linux 发行包；macOS 请用 Docker 方案\"; exit 1; }",
+        "case \"$(uname -m)\" in x86_64) url=https://github.com/SnowLuma/SnowLuma/releases/download/v2.2.0/SnowLuma-v2.2.0-linux-x64.tar.gz ; want=88fb5ac65df552ae25f6508cc9e807c11f30247cf35e819867560e05a36cd4e3 ;; aarch64|arm64) url=https://github.com/SnowLuma/SnowLuma/releases/download/v2.2.0/SnowLuma-v2.2.0-linux-arm64.tar.gz ; want=1730fc2546aa745c066cae84a3fd16107d46ee0aa4a1f6c692fbc342e55d1ffa ;; *) echo \"不支持的 CPU 架构\"; exit 1 ;; esac",
+        "curl -fL -o SnowLuma.tar.gz \"$url\"",
+        "echo \"$want  SnowLuma.tar.gz\" | sha256sum -c -",
+        "tar -xzf SnowLuma.tar.gz ; chmod +x launcher.sh ; echo \"解压完成：运行 ./launcher.sh，然后打开 http://127.0.0.1:5099\""
+      ],
+      "stepsPs": [
+        "curl.exe -L --fail -o SnowLuma.zip https://github.com/SnowLuma/SnowLuma/releases/download/v2.2.0/SnowLuma-v2.2.0-win-x64.zip",
+        "$h = (Get-FileHash -Algorithm SHA256 SnowLuma.zip).Hash.ToLower() ; if ($h -ne '4e293f1e4452c9ae0d8a8d4f065dea8a170ca64502f2d6d4bff8f92a826b5f75') { throw \"SHA256 校验失败，文件可能不完整，请重试\" }",
+        "Expand-Archive -Path SnowLuma.zip -DestinationPath SnowLuma -Force ; Write-Host '已解压：进入 SnowLuma 目录运行 launcher.bat，然后打开 http://127.0.0.1:5099'"
+      ],
+      "source": "https://github.com/SnowLuma/SnowLuma#快速开始"
+    },
+    "pitfalls": [
+      "打不开 5099：先确认 launcher 没报错，初始密码只在启动日志里打印一次",
+      "接入 QQ 失败：确认 QQ 已登录，且版本与 SnowLuma 兼容",
+      "OneBot 连不上：检查 WS / HTTP 地址与端口，别把 5099 当成 OneBot 端口",
+      "macOS 用户：没有原生发行包，按官方文档用 Docker",
+      "Lite 包启动失败：需要 Node.js 24+，完整包自带运行时",
+      "封号风险自担：不要在主账号上跑高频自动化",
+      "升级前备份配置与消息存储，删包重装会丢数据"
+    ]
+  },
+  "gate": {
+    "allow": [
+      "dumate"
+    ],
+    "label": "百度搭子",
+    "url": "https://www.dumate.cn/",
+    "guideUrl": "https://github.com/JUTZUGC/snowluma-deploy-guide",
+    "howToFix": [
+      "1. 打开 https://www.dumate.cn/ ，下载并安装「百度搭子」电脑端（Windows / macOS）",
+      "2. 用账号登录",
+      "3. 在对话窗口发送：你好，帮我从 github 部署 JUTZUGC/snowluma-deploy-guide 到我的电脑上",
+      "4. 部署完成后，在同一对话窗口里继续使用"
+    ],
+    "hint": "请改用「百度搭子」部署后再使用；本工具没有网页版入口。",
+    "onError": "allow"
+  },
+  "keywords": [
+    "SnowLuma 部署",
+    "SnowLuma 安装教程",
+    "QQ 机器人 OneBot",
+    "OneBot v11 协议端",
+    "NapCat 替代",
+    "QQ 机器人 搭建",
+    "SnowLuma 中文",
+    "QQ 接入 AstrBot",
+    "SnowLuma MCP",
+    "snowluma deploy guide"
+  ],
+  "topics": [
+    "qq",
+    "onebot",
+    "bot-framework",
+    "typescript",
+    "mcp",
+    "automation"
+  ]
+}
