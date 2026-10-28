@@ -8,7 +8,7 @@
     "oneLiner": "把 QQ 会话桥接成 OneBot v11 的运行时",
     "officialRepo": "https://github.com/SnowLuma/SnowLuma",
     "officialDocs": "https://snowluma.github.io/zh/docs/guide/deploy",
-    "stars": "2.7k",
+    "stars": "3.0k",
     "license": "自定义 EULA",
     "highlights": [
       "接口：OneBot v11（WS 服务端 / 客户端、HTTP 服务端 / 上报）",
@@ -20,11 +20,11 @@
     "mcpSupport": "项目提供 `@snowluma/mcp` 包，可把能力以 MCP 形式暴露给 Agent。本仓库的 MCP 只提供下载、校验与常见坑。",
     "webuiUrl": "",
     "adapterPorts": "",
-    "collectedAt": "2026-10-26",
+    "collectedAt": "2026-10-28",
     "verification": [
       [
-        "Release v2.2.0 的 Windows / Linux 包与 SHA256 digest 已核对",
-        "已核对 2026-10-26"
+        "Release v2.2.1 的 Windows / Linux 包与 SHA256 digest 已核对",
+        "已核对 2026-10-28"
       ],
       [
         "未下载运行（桥接需要已登录的 QQ，本机无测试账号）",
@@ -43,14 +43,14 @@
       "type": "binary",
       "steps": [
         "[ \"$(uname -s)\" = \"Linux\" ] || { echo \"官方只提供 Windows / Linux 发行包；macOS 请用 Docker 方案\"; exit 1; }",
-        "case \"$(uname -m)\" in x86_64) url=https://github.com/SnowLuma/SnowLuma/releases/download/v2.2.0/SnowLuma-v2.2.0-linux-x64.tar.gz ; want=88fb5ac65df552ae25f6508cc9e807c11f30247cf35e819867560e05a36cd4e3 ;; aarch64|arm64) url=https://github.com/SnowLuma/SnowLuma/releases/download/v2.2.0/SnowLuma-v2.2.0-linux-arm64.tar.gz ; want=1730fc2546aa745c066cae84a3fd16107d46ee0aa4a1f6c692fbc342e55d1ffa ;; *) echo \"不支持的 CPU 架构\"; exit 1 ;; esac",
+        "case \"$(uname -m)\" in x86_64) url=https://github.com/SnowLuma/SnowLuma/releases/download/v2.2.1/SnowLuma-v2.2.1-linux-x64.tar.gz ; want=93a30395c8cc7c39d1061fd1ad841a4382921a6bc7833725857805c4f2e98b4d ;; aarch64|arm64) url=https://github.com/SnowLuma/SnowLuma/releases/download/v2.2.1/SnowLuma-v2.2.1-linux-arm64.tar.gz ; want=26727d30109a5a7cc19e95f7c7a7ca9cbf9eb17adce7c122129e96bda88a2945 ;; *) echo \"不支持的 CPU 架构\"; exit 1 ;; esac",
         "curl -fL -o SnowLuma.tar.gz \"$url\"",
         "echo \"$want  SnowLuma.tar.gz\" | sha256sum -c -",
         "tar -xzf SnowLuma.tar.gz ; chmod +x launcher.sh ; echo \"解压完成：运行 ./launcher.sh，然后打开 http://127.0.0.1:5099\""
       ],
       "stepsPs": [
-        "curl.exe -L --fail -o SnowLuma.zip https://github.com/SnowLuma/SnowLuma/releases/download/v2.2.0/SnowLuma-v2.2.0-win-x64.zip",
-        "$h = (Get-FileHash -Algorithm SHA256 SnowLuma.zip).Hash.ToLower() ; if ($h -ne '4e293f1e4452c9ae0d8a8d4f065dea8a170ca64502f2d6d4bff8f92a826b5f75') { throw \"SHA256 校验失败，文件可能不完整，请重试\" }",
+        "curl.exe -L --fail -o SnowLuma.zip https://github.com/SnowLuma/SnowLuma/releases/download/v2.2.1/SnowLuma-v2.2.1-win-x64.zip",
+        "$h = (Get-FileHash -Algorithm SHA256 SnowLuma.zip).Hash.ToLower() ; if ($h -ne '09a3fbbf42ea805c4d61b5e67bec2a46ef341fa803f211d78c40796cb7f535dc') { throw \"SHA256 校验失败，文件可能不完整，请重试\" }",
         "Expand-Archive -Path SnowLuma.zip -DestinationPath SnowLuma -Force ; Write-Host '已解压：进入 SnowLuma 目录运行 launcher.bat，然后打开 http://127.0.0.1:5099'"
       ],
       "source": "https://github.com/SnowLuma/SnowLuma#快速开始"

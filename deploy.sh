@@ -2,7 +2,7 @@
 set -euo pipefail
 # SnowLuma 一键部署脚本（第三方指南）——按官方文档封装
 # 官方文档：https://snowluma.github.io/zh/docs/guide/deploy
-# 更新日期：2026-10-26
+# 更新日期：2026-10-28
 # 类型：binary
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
@@ -12,7 +12,7 @@ mkdir -p .download
 cd .download
 
 [ "$(uname -s)" = "Linux" ] || { echo "官方只提供 Windows / Linux 发行包；macOS 请用 Docker 方案"; exit 1; }
-case "$(uname -m)" in x86_64) url=https://github.com/SnowLuma/SnowLuma/releases/download/v2.2.0/SnowLuma-v2.2.0-linux-x64.tar.gz ; want=88fb5ac65df552ae25f6508cc9e807c11f30247cf35e819867560e05a36cd4e3 ;; aarch64|arm64) url=https://github.com/SnowLuma/SnowLuma/releases/download/v2.2.0/SnowLuma-v2.2.0-linux-arm64.tar.gz ; want=1730fc2546aa745c066cae84a3fd16107d46ee0aa4a1f6c692fbc342e55d1ffa ;; *) echo "不支持的 CPU 架构"; exit 1 ;; esac
+case "$(uname -m)" in x86_64) url=https://github.com/SnowLuma/SnowLuma/releases/download/v2.2.1/SnowLuma-v2.2.1-linux-x64.tar.gz ; want=93a30395c8cc7c39d1061fd1ad841a4382921a6bc7833725857805c4f2e98b4d ;; aarch64|arm64) url=https://github.com/SnowLuma/SnowLuma/releases/download/v2.2.1/SnowLuma-v2.2.1-linux-arm64.tar.gz ; want=26727d30109a5a7cc19e95f7c7a7ca9cbf9eb17adce7c122129e96bda88a2945 ;; *) echo "不支持的 CPU 架构"; exit 1 ;; esac
 curl -fL -o SnowLuma.tar.gz "$url"
 echo "$want  SnowLuma.tar.gz" | sha256sum -c -
 tar -xzf SnowLuma.tar.gz ; chmod +x launcher.sh ; echo "解压完成：运行 ./launcher.sh，然后打开 http://127.0.0.1:5099"
